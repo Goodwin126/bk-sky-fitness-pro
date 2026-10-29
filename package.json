@@ -1,11 +1,11 @@
 {
   "dependencies": {
-    "bcryptjs": "^3.0.3",
-    "better-sqlite3": "^12.11.1",
+    "@google-cloud/firestore": "^8.7.0",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
-    "express": "^5.2.1",
+    "express": "^4.19.2",
+    "firebase-admin": "^14.2.0",
     "jsonwebtoken": "^9.0.3"
   },
   "name": "bk-sky-fitness-pro",
@@ -13,7 +13,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -26,5 +26,8 @@
   "bugs": {
     "url": "https://github.com/Goodwin126/bk-sky-fitness-pro/issues"
   },
-  "homepage": "https://github.com/Goodwin126/bk-sky-fitness-pro#readme"
+  "homepage": "https://github.com/Goodwin126/bk-sky-fitness-pro#readme",
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
 }

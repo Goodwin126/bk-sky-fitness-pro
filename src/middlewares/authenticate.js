@@ -1,0 +1,38 @@
+const jwt = require("jsonwebtoken");
+const JWT_SECRET = process.env.JWT_SECRET;
+
+async function authenticateToken(req, res, next) {
+  const authHeader = req.headers["authorization"];
+
+  if (!authHeader) {
+    return res
+      .status(401)
+      .json({ error: "Access token required in Authorization header" });
+  }
+
+  const parts = authHeader.split(" ");
+
+  if (parts.length !== 2 || parts[0] !== "Bearer") {
+    return res
+      .status(401)
+      .json({ error: "Invalid token format. Use 'Bearer <token>'" });
+  }
+
+  const token = parts[1];
+
+  try {
+    const user = jwt.verify(token, JWT_SECRET);
+
+    req.user = user;
+
+    next();
+  } catch (error) {
+    console.error("Token verification failed:", error.message);
+    if (error.name === "TokenExpiredError") {
+      return res.status(401).json({ error: "Token has expired" });
+    }
+    return res.status(403).json({ error: "Invalid or expired token" });
+  }
+}
+
+module.exports = authenticateToken;
