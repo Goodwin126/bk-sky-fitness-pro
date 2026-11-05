@@ -15,6 +15,7 @@ const authenticate = require("../middlewares/authenticate");
 // Публичные роуты
 router.post("/register", authController.register);
 router.post("/login", authController.login);
+router.post("/forgot-password", authController.forgotPassword);
 router.post("/verify-token", authController.verifyToken);
 
 // Защищенные роуты - требуют авторизацию

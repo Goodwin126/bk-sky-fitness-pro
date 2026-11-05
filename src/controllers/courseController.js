@@ -1,26 +1,6 @@
 const courseModel = require("../models/courseModel");
 const authenticateToken = require("../middlewares/authenticate");
 
-exports.getUserCourses = async (req, res) => {
-  try {
-    // req.user уже заполнен middleware authenticateToken
-    const userId = req.user.id;
-
-    const coursesWithProgress =
-      await courseModel.getCoursesWithUserProgress(userId);
-
-    res.json({
-      success: true,
-      data: coursesWithProgress,
-    });
-  } catch (error) {
-    console.error("Error fetching user courses:", error);
-    res
-      .status(500)
-      .json({ error: "Failed to fetch user courses", details: error.message });
-  }
-};
-
 exports.getCourseById = async (req, res) => {
   try {
     const { db } = req.app.locals.fb;
@@ -61,6 +41,26 @@ exports.getCourseById = async (req, res) => {
       success: false,
       error: error.message,
     });
+  }
+};
+
+exports.getUserCourses = async (req, res) => {
+  try {
+    // req.user уже заполнен middleware authenticateToken
+    const userId = req.user.id;
+
+    const coursesWithProgress =
+      await courseModel.getCoursesWithUserProgress(userId);
+
+    res.json({
+      success: true,
+      data: coursesWithProgress,
+    });
+  } catch (error) {
+    console.error("Error fetching user courses:", error);
+    res
+      .status(500)
+      .json({ error: "Failed to fetch user courses", details: error.message });
   }
 };
 
